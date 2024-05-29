@@ -2,9 +2,11 @@
   <div class="background">
     <div class="column1">
       <img class="map1" :src="getImageUrl(maps[0])" alt="Map Image 1" />
+      <p class="mapName">{{ maps[0].name }}</p>
     </div>
     <div class="column2">
       <img class="map2" :src="getImageUrl(maps[1])" alt="Map Image 2" />
+      <p class="mapName">{{ maps[1].name }}</p>
     </div>
   </div>
 </template>
@@ -65,20 +67,19 @@ function shuffle(array) {
 
 <style>
 body,
-html {
+html,
+p {
   margin: 0;
   padding: 0;
 }
 
-.background {
-  width: 100%;
-}
 .column1 {
   width: 50%;
   height: 100vh;
   float: left;
 }
 .column2 {
+  width: 50%;
   margin-left: 50%;
   height: 100vh;
 }
@@ -86,6 +87,7 @@ html {
 .map1,
 .map2 {
   height: 100vh;
+  width: 50%;
   position: absolute;
   object-fit: cover;
   z-index: -1;
