@@ -108,6 +108,7 @@ p {
 
 .map:hover {
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .mapName {
