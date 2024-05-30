@@ -1,11 +1,11 @@
 <template>
   <div class="background">
-    <div class="column1">
-      <img class="map1" :src="getImageUrl(maps[0])" alt="Map Image 1" />
+    <div class="column column1">
+      <img class="map" :src="getImageUrl(maps[0])" alt="Map Image 1" />
       <p class="mapName">{{ maps[0].name }}</p>
     </div>
-    <div class="column2">
-      <img class="map2" :src="getImageUrl(maps[1])" alt="Map Image 2" />
+    <div class="column column2">
+      <img class="map" :src="getImageUrl(maps[1])" alt="Map Image 2" />
       <p class="mapName">{{ maps[1].name }}</p>
     </div>
   </div>
@@ -66,6 +66,11 @@ function shuffle(array) {
 </script>
 
 <style>
+@font-face {
+  font-family: 'BigNoodleTooOblique';
+  src: url('./assets/big-noodle-too-oblique.ttf');
+}
+
 body,
 html,
 p {
@@ -73,23 +78,55 @@ p {
   padding: 0;
 }
 
-.column1 {
-  width: 50%;
-  height: 100vh;
-  float: left;
-}
-.column2 {
-  width: 50%;
-  margin-left: 50%;
+.background {
+  display: flex;
   height: 100vh;
 }
 
-.map1,
-.map2 {
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.map {
   height: 100vh;
-  width: 50%;
-  position: absolute;
+  width: 100%;
   object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.map:hover {
+  transform: scale(1.05);
+}
+
+.mapName {
+  font-family: 'BigNoodleTooOblique';
+  color: white;
+  font-size: 7vw;
+  text-align: center;
+  text-shadow: black 1px 0 10px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.mapName::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
 </style>
