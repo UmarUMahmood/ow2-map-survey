@@ -1,11 +1,11 @@
 <template>
   <div class="background">
     <div class="column column1">
-      <img class="map" :src="getImageUrl(maps[0])" alt="Map Image 1" />
+      <img class="map" :src="getImageUrl(maps[0])" @click="vote(maps[0].name)" alt="Map Image 1" />
       <p class="mapName">{{ maps[0].name }}</p>
     </div>
     <div class="column column2">
-      <img class="map" :src="getImageUrl(maps[1])" alt="Map Image 2" />
+      <img class="map" :src="getImageUrl(maps[1])" @click="vote(maps[1].name)" alt="Map Image 2" />
       <p class="mapName">{{ maps[1].name }}</p>
     </div>
   </div>
@@ -13,6 +13,11 @@
 
 <script setup>
 import { ref } from 'vue'
+
+function vote(map) {
+  console.log(`You voted for ${map}`)
+  updateMaps()
+}
 
 // 2 maps are passed to help avoid picking the same map twice
 const maps = ref(getRandomMaps())
@@ -62,6 +67,10 @@ function shuffle(array) {
     ;[array[i], array[j]] = [array[j], array[i]]
   }
   return array
+}
+
+function updateMaps() {
+  maps.value = getRandomMaps()
 }
 </script>
 
