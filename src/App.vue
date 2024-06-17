@@ -1,11 +1,21 @@
 <template>
   <div class="background">
     <div class="column column1">
-      <img class="map" :src="getImageUrl(maps[0])" @click="vote(maps[0].name)" alt="Map Image 1" />
+      <img
+        class="map"
+        :src="getImageUrl(maps[0])"
+        @click="vote(maps[0].name, maps[1].name, maps[0].name)"
+        alt="Map Image 1"
+      />
       <p class="mapName">{{ maps[0].name }}</p>
     </div>
     <div class="column column2">
-      <img class="map" :src="getImageUrl(maps[1])" @click="vote(maps[1].name)" alt="Map Image 2" />
+      <img
+        class="map"
+        :src="getImageUrl(maps[1])"
+        @click="vote(maps[0].name, maps[1].name, maps[1].name)"
+        alt="Map Image 2"
+      />
       <p class="mapName">{{ maps[1].name }}</p>
     </div>
   </div>
@@ -13,9 +23,11 @@
 
 <script setup>
 import { ref } from 'vue'
+import { sendVote } from './utils/voteHandler.js'
 
-function vote(map) {
-  console.log(`You voted for ${map}`)
+async function vote(map1, map2, voted) {
+  console.log(`You were presented with ${map1} and ${map2}. You voted for ${voted}`)
+  await sendVote(map1, map2, voted)
   updateMaps()
 }
 
