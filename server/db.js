@@ -46,10 +46,13 @@ export async function addVote(map1, map2, voted) {
   }
 }
 
-process.on("SIGINT", async () => {
+export async function closeDb() {
   if (client) {
-    await client.close()
-    console.log("MongoDB connected closed")
+    try {
+      await client.close()
+      console.log("MongoDB connection closed")
+    } catch (err) {
+      console.error("Error closing MongoDB connection:", err)
+    }
   }
-  process.exit(0)
-})
+}

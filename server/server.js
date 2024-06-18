@@ -1,6 +1,6 @@
 import express from "express"
 import cors from "cors"
-import { getVotes, addVote } from "./db.js"
+import { getVotes, addVote, initialiseDb, closeDb } from "./db.js"
 
 const app = express()
 const port = 3000
@@ -27,6 +27,17 @@ app.post("/vote", async (req, res) => {
   }
 })
 
-app.listen(port, () => {
-  console.log(`OW2 Map Survey app listening on port ${port}`)
+app.listen(port, async () => {
+  try {
+    await initialiseDb()
+    console.log(`OW2 Map Survey app listening on port ${port}`)
+  } catch (err) {
+    console.error("Failed to initialize the database:", err)
+    process.exit(1)
+  }
+})
+
+process.on("SIGINT", async () => {
+  await closeDb()
+  process.exit(0)
 })
