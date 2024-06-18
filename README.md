@@ -33,3 +33,11 @@ npm run build
 ```sh
 npm run lint
 ```
+
+---
+
+To run the project:
+
+1. Make sure Docker Desktop is running. Run `docker-compose up -d` in root directory.
+2. Start the Express server `node ./server/server.js`
+3. In another terminal, start the Vue app `npm run dev`
