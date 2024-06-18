@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 import { MongoClient } from "mongodb"
 
-dotenv.config({ path: "../.env"});
+dotenv.config();
 
 const url = process.env.MONGODB_URL;
 const dbName = "votes_db";
@@ -25,6 +25,7 @@ export async function initialiseDb() {
 
 export async function getVotes() {
     try {
+        console.log("db: ", db)
         if (!db) await initialiseDb()
         const collection = db.collection("votes");
         const votes = await collection.find({}).toArray();
