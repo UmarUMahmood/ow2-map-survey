@@ -22,8 +22,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { sendVote } from './utils/voteHandler.js'
+import { ref } from "vue"
+import { sendVote } from "./utils/voteHandler.js"
 
 async function vote(map1, map2, voted) {
   console.log(`You were presented with ${map1} and ${map2}. You voted for ${voted}`)
@@ -36,33 +36,33 @@ const maps = ref(getRandomMaps())
 
 function getRandomMaps() {
   const allMaps = [
-    { name: 'Antarctic Peninsula', image: 'antarctic_peninsula.jpg' },
-    { name: 'Blizzard World', image: 'blizzard_world.jpg' },
-    { name: 'Busan', image: 'busan.jpg' },
-    { name: 'Circuit Royal', image: 'circuit_royal.jpg' },
-    { name: 'Colosseo', image: 'colosseo.jpg' },
-    { name: 'Dorado', image: 'dorado.jpg' },
-    { name: 'Eichenwalde', image: 'eichenwalde.jpg' },
-    { name: 'Esperanca', image: 'esperanca.jpg' },
-    { name: 'Gibraltar', image: 'gibraltar.jpg' },
-    { name: 'Havana', image: 'havana.jpg' },
-    { name: 'Hollywood', image: 'hollywood.jpg' },
-    { name: 'Ilios', image: 'ilios.jpg' },
-    { name: 'Junkertown', image: 'junkertown.jpg' },
-    { name: 'Kings Row', image: 'kings_row.jpg' },
-    { name: 'Lijiang', image: 'lijiang.jpg' },
-    { name: 'Midtown', image: 'midtown.jpg' },
-    { name: 'Nepal', image: 'nepal.jpg' },
-    { name: 'New Junk City', image: 'new_junk_city.jpg' },
-    { name: 'New Queen Street', image: 'new_queen_street.jpg' },
-    { name: 'Numbani', image: 'numbani.jpg' },
-    { name: 'Oasis', image: 'oasis.jpg' },
-    { name: 'Paraiso', image: 'paraiso.jpg' },
-    { name: 'Rialto', image: 'rialto.jpg' },
-    { name: 'Route 66', image: 'route_66.jpg' },
-    { name: 'Samoa', image: 'samoa.jpg' },
-    { name: 'Shambali', image: 'shambali.jpg' },
-    { name: 'Suravasa', image: 'suravasa.jpg' }
+    { name: "Antarctic Peninsula", image: "antarctic_peninsula.jpg" },
+    { name: "Blizzard World", image: "blizzard_world.jpg" },
+    { name: "Busan", image: "busan.jpg" },
+    { name: "Circuit Royal", image: "circuit_royal.jpg" },
+    { name: "Colosseo", image: "colosseo.jpg" },
+    { name: "Dorado", image: "dorado.jpg" },
+    { name: "Eichenwalde", image: "eichenwalde.jpg" },
+    { name: "Esperanca", image: "esperanca.jpg" },
+    { name: "Gibraltar", image: "gibraltar.jpg" },
+    { name: "Havana", image: "havana.jpg" },
+    { name: "Hollywood", image: "hollywood.jpg" },
+    { name: "Ilios", image: "ilios.jpg" },
+    { name: "Junkertown", image: "junkertown.jpg" },
+    { name: "Kings Row", image: "kings_row.jpg" },
+    { name: "Lijiang", image: "lijiang.jpg" },
+    { name: "Midtown", image: "midtown.jpg" },
+    { name: "Nepal", image: "nepal.jpg" },
+    { name: "New Junk City", image: "new_junk_city.jpg" },
+    { name: "New Queen Street", image: "new_queen_street.jpg" },
+    { name: "Numbani", image: "numbani.jpg" },
+    { name: "Oasis", image: "oasis.jpg" },
+    { name: "Paraiso", image: "paraiso.jpg" },
+    { name: "Rialto", image: "rialto.jpg" },
+    { name: "Route 66", image: "route_66.jpg" },
+    { name: "Samoa", image: "samoa.jpg" },
+    { name: "Shambali", image: "shambali.jpg" },
+    { name: "Suravasa", image: "suravasa.jpg" }
   ]
 
   const maps = shuffle(allMaps).slice(0, 2)
@@ -88,8 +88,8 @@ function updateMaps() {
 
 <style>
 @font-face {
-  font-family: 'BigNoodleTooOblique';
-  src: url('./assets/big-noodle-too-oblique.ttf');
+  font-family: "BigNoodleTooOblique";
+  src: url("./assets/big-noodle-too-oblique.ttf");
 }
 
 body,
@@ -133,7 +133,7 @@ p {
 }
 
 .mapName {
-  font-family: 'BigNoodleTooOblique';
+  font-family: "BigNoodleTooOblique";
   color: white;
   font-size: 7vw;
   text-align: center;
@@ -143,7 +143,7 @@ p {
 }
 
 .mapName::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   width: 100%;
