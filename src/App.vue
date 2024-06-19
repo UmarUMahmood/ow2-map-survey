@@ -1,5 +1,6 @@
 <template>
   <div class="background">
+    <div v-if="loading" class="overlay">Loading...</div>
     <div class="column column1">
       <img
         class="map"
@@ -25,10 +26,15 @@
 import { ref } from "vue"
 import { sendVote } from "./utils/voteHandler.js"
 
+const loading = ref(false)
+
 async function vote(map1, map2, voted) {
+  if (loading.value) return
+  loading.value = true
   console.log(`You were presented with ${map1} and ${map2}. You voted for ${voted}`)
   await sendVote(map1, map2, voted)
   updateMaps()
+  loading.value = false
 }
 
 // 2 maps are passed to help avoid picking the same map twice
@@ -102,6 +108,7 @@ p {
 .background {
   display: flex;
   height: 100vh;
+  position: relative;
 }
 
 .column {
@@ -150,5 +157,22 @@ p {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  font-size: 4vw;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "BigNoodleTooOblique";
+  cursor: default;
 }
 </style>
