@@ -23,6 +23,44 @@ app.use(limiter)
 app.use(helmet())
 app.use(express.json())
 
+const maps = [
+  "Antarctic Peninsula",
+  "Blizzard World",
+  "Busan",
+  "Circuit Royal",
+  "Colosseo",
+  "Dorado",
+  "Eichenwalde",
+  "Esperanca",
+  "Gibraltar",
+  "Havana",
+  "Hollywood",
+  "Ilios",
+  "Junkertown",
+  "Kings Row",
+  "Lijiang",
+  "Midtown",
+  "Nepal",
+  "New Junk City",
+  "New Queen Street",
+  "Numbani",
+  "Oasis",
+  "Paraiso",
+  "Rialto",
+  "Route 66",
+  "Samoa",
+  "Shambali",
+  "Suravasa"
+]
+
+const validateMaps = (req, res, next) => {
+  const { map1, map2, voted } = req.body
+  if (!maps.includes(map1) || !maps.includes(map2) || !maps.includes(voted)) {
+    return res.status(400).send("Invalid map name")
+  }
+  next()
+}
+
 app.get("/votes", async (req, res) => {
   try {
     const votes = await getVotes()
@@ -32,7 +70,7 @@ app.get("/votes", async (req, res) => {
   }
 })
 
-app.post("/vote", async (req, res) => {
+app.post("/vote", validateMaps, async (req, res) => {
   const { map1, map2, voted } = req.body
   try {
     await addVote(map1, map2, voted)
