@@ -1,11 +1,11 @@
 <template>
-  <div class="background">
-    <div v-if="loading" class="overlay">Loading...</div>
+  <div :class="['background', { 'loading-cursor': loading }]">
     <div class="column column1">
       <img
         class="map"
         :src="getImageUrl(maps[0])"
-        @click="vote(maps[0].name, maps[1].name, maps[0].name)"
+        @click="!loading && vote(maps[0].name, maps[1].name, maps[0].name)"
+        :class="{ 'disabled': loading }"
         alt="Map Image 1"
       />
       <p class="mapName">{{ maps[0].name }}</p>
@@ -14,7 +14,8 @@
       <img
         class="map"
         :src="getImageUrl(maps[1])"
-        @click="vote(maps[0].name, maps[1].name, maps[1].name)"
+        @click="!loading && vote(maps[0].name, maps[1].name, maps[1].name)"
+        :class="{ 'disabled': loading }"
         alt="Map Image 2"
       />
       <p class="mapName">{{ maps[1].name }}</p>
@@ -111,6 +112,10 @@ p {
   position: relative;
 }
 
+.loading-cursor {
+  cursor: wait;
+}
+
 .column {
   flex: 1;
   display: flex;
@@ -139,6 +144,10 @@ p {
   cursor: pointer;
 }
 
+.map.disabled {
+  pointer-events: none;
+}
+
 .mapName {
   font-family: "BigNoodleTooOblique";
   color: white;
@@ -157,22 +166,5 @@ p {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  font-size: 4vw;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "BigNoodleTooOblique";
-  cursor: default;
 }
 </style>
