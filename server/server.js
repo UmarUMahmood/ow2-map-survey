@@ -1,11 +1,26 @@
 import express from "express"
 import cors from "cors"
 import { getVotes, addVote, initialiseDb, closeDb } from "./db.js"
+import rateLimit from "express-rate-limit"
+import helmet from "helmet"
 
 const app = express()
 const port = 3000
 
-app.use(cors())
+const corsOptions = {
+  origin: "http://127.0.0.1:5173",
+  optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions))
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 200 // limit each IP to 100 requests per windowMs
+})
+
+app.use(limiter)
+app.use(helmet())
 app.use(express.json())
 
 app.get("/votes", async (req, res) => {
