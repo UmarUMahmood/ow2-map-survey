@@ -1,11 +1,12 @@
 <template>
   <div :class="['background', { 'loading-cursor': loading }]">
+    <p class="count">Total Votes: {{ count }}</p>
     <div class="column column1">
       <img
         class="map"
         :src="getImageUrl(maps[0])"
         @click="!loading && vote(maps[0].name, maps[1].name, maps[0].name)"
-        :class="{ 'disabled': loading }"
+        :class="{ disabled: loading }"
         alt="Map Image 1"
       />
       <p class="mapName">{{ maps[0].name }}</p>
@@ -15,7 +16,7 @@
         class="map"
         :src="getImageUrl(maps[1])"
         @click="!loading && vote(maps[0].name, maps[1].name, maps[1].name)"
-        :class="{ 'disabled': loading }"
+        :class="{ disabled: loading }"
         alt="Map Image 2"
       />
       <p class="mapName">{{ maps[1].name }}</p>
@@ -24,10 +25,20 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import { sendVote } from "./utils/voteHandler.js"
+import { getCount } from "./utils/getCount.js"
 
 const loading = ref(false)
+const count = ref(0)
+
+async function fetchCount() {
+  count.value = await getCount()
+}
+
+onMounted(() => {
+  fetchCount()
+})
 
 async function vote(map1, map2, voted) {
   if (loading.value) return
@@ -166,5 +177,34 @@ p {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
+}
+
+.count {
+  font-family: "BigNoodleTooOblique";
+  color: white;
+  font-size: 2vw;
+  text-align: center;
+  text-shadow: black 1px 0 10px;
+  z-index: 1;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 15px 0 0;
+}
+
+.count::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  border-radius: 0 0 10px 10px;
+  border: 3px solid black;
+  border-top: none;
 }
 </style>

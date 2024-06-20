@@ -1,6 +1,6 @@
 import express from "express"
 import cors from "cors"
-import { getVotes, addVote, initialiseDb, closeDb } from "./db.js"
+import { getVotes, getCount, addVote, initialiseDb, closeDb } from "./db.js"
 import rateLimit from "express-rate-limit"
 import helmet from "helmet"
 
@@ -67,6 +67,15 @@ app.get("/votes", async (req, res) => {
     res.status(200).json(votes)
   } catch (err) {
     res.status(500).send("Error retrieving votes")
+  }
+})
+
+app.get("/count", async (req, res) => {
+  try {
+    const count = await getCount()
+    res.status(200).json(count)
+  } catch (err) {
+    res.status(500).send("Error retrieving count")
   }
 })
 

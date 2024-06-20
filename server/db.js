@@ -25,13 +25,23 @@ export async function initialiseDb() {
 
 export async function getVotes() {
   try {
-    console.log("db: ", db)
     if (!db) await initialiseDb()
     const collection = db.collection("votes")
     const votes = await collection.find({}).toArray()
     return votes
   } catch (err) {
     console.error("Error retrieving votes: ", err)
+  }
+}
+
+export async function getCount() {
+  try {
+    if (!db) await initialiseDb()
+    const collection = db.collection("votes")
+    const countVotes = await collection.count()
+    return countVotes
+  } catch (err) {
+    console.error("Error getting count: ", err)
   }
 }
 
