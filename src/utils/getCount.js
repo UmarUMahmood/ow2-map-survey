@@ -1,6 +1,6 @@
 export async function getCount() {
   try {
-    const response = await fetch("http://localhost:3000/count")
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/count`)
     const count = await response.json()
     return count
   } catch (error) {

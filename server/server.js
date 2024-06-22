@@ -3,12 +3,15 @@ import cors from "cors"
 import { getVotes, getCount, addVote, initialiseDb, closeDb } from "./db.js"
 import rateLimit from "express-rate-limit"
 import helmet from "helmet"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 const corsOptions = {
-  origin: "http://127.0.0.1:5173",
+  origin: process.env.ORIGIN_URL,
   optionsSuccessStatus: 200
 }
 

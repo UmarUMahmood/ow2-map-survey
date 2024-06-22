@@ -1,6 +1,6 @@
 export async function sendVote(map1, map2, voted) {
   try {
-    const response = await fetch("http://localhost:3000/vote", {
+    const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT_URL}/vote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
