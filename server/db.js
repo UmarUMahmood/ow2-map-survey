@@ -1,5 +1,7 @@
 import dotenv from "dotenv"
 import { MongoClient } from "mongodb"
+import fs from "fs"
+import path from "path"
 
 dotenv.config()
 
@@ -23,11 +25,18 @@ export async function initialiseDb() {
   }
 }
 
+// convert votes to a json file to save in ./data
+function saveToJsonFile(votes) {
+  const json = JSON.stringify(votes)
+  fs.writeFileSync(path.join("./data", "votes.json"), json)
+}
+
 export async function getVotes() {
   try {
     if (!db) await initialiseDb()
     const collection = db.collection("votes")
     const votes = await collection.find({}).toArray()
+    saveToJsonFile(votes)
     return votes
   } catch (err) {
     console.error("Error retrieving votes: ", err)
