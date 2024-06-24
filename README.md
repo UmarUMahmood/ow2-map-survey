@@ -1,43 +1,50 @@
-# ow2-map-survey
+# Overwatch 2 Map Survey
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is a web application to collect some data on what maps in Overwatch 2 are the most popular to play.
+The frontend is built with Vuejs and served by Caddy, while the backend is built with Node.js, Express and MongoDB.
 
-## Recommended IDE Setup
+## Prerequisites
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+* Docker Desktop
 
-## Customize configuration
+## Installation
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+1. **Clone the repository:**
 
-## Project Setup
+    ```sh
+    git clone git@github.com:UmarUMahmood/ow2-map-survey.git
+    cd ow2-map-survey
+    ```
 
-```sh
-npm install
-```
+2. **Environment Variables:**
 
-### Compile and Hot-Reload for Development
+    Create `.env` in the root directory:
 
-```sh
-npm run dev
-```
+    ```sh
+    echo "MONGO_INITDB_ROOT_USERNAME=yourmongodbusername" > .env
+    echo "MONGO_INITDB_ROOT_PASSWORD=yourmongodbpassword" >> .env
+    ```
 
-### Compile and Minify for Production
+    Create `.env` in `./backend` directory:
 
-```sh
-npm run build
-```
+    ```sh
+    echo "MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/" > ./backend/.env
+    echo "ORIGIN_URL=http://localhost.com" >> ./backend/.env
+    echo "PORT=3000" >> ./backend/.env
+    ```
 
-### Lint with [ESLint](https://eslint.org/)
+    Create `.env` in `./frontend` directory:
 
-```sh
-npm run lint
-```
+    ```sh
+    echo "VITE_API_ENDPOINT_URL=http://localhost.com/api" > ./frontend/.env
+    ```
 
----
+    Replace the domain in `./frontend/Caddyfile` to be `:80`.
 
-To run the project:
+    If you use your own domain, then you can use that and replace `localhost` with your domain name in the `.env` files. Make sure to use the staging environment for TLS while testing.
 
-1. Make sure Docker Desktop is running. Run `docker-compose up -d` in root directory.
-2. Start the Express server `node ./server/server.js`
-3. In another terminal, start the Vue app `npm run dev`
+3. **Build and Run Containers:**
+
+    ```sh
+    docker compose up --build
+    ```
