@@ -12,6 +12,9 @@ const port = process.env.PORT || 3000
 
 const corsOptions = {
   origin: process.env.ORIGIN_URL,
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST"],
   optionsSuccessStatus: 200
 }
 
@@ -22,6 +25,7 @@ const limiter = rateLimit({
   max: 200 // limit each IP to 200 requests per windowMs
 })
 
+app.set("trust proxy", 1)
 app.use(limiter)
 app.use(helmet())
 app.use(express.json())

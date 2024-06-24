@@ -1,0 +1,18 @@
+umarrii.com {
+	# Use the staging environment during development to avoid rate limits just in case
+	# tls {
+	# 	ca https://acme-staging-v02.api.letsencrypt.org/directory
+	# }
+
+	redir /api /api/
+
+	handle_path /api/* {
+		reverse_proxy backend:3000
+	}
+
+	handle {
+		root * /usr/share/caddy
+		file_server
+		try_files {path} /index.html
+	}
+}

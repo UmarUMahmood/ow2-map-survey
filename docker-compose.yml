@@ -1,4 +1,18 @@
 services:
+  caddy:
+    container_name: caddy
+    image: caddy
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+      - caddy-config:/config
+      - caddy-data:/data
+      - ./frontend/Caddyfile:/etc/caddy/Caddyfile
+      - ./frontend/dist:/usr/share/caddy
+    depends_on:
+      - backend
+
   backend:
     build: ./backend
     env_file: 
@@ -19,4 +33,6 @@ services:
       - mongodata:/data/db
 
 volumes:
+  caddy-config:
+  caddy-data:
   mongodata:
