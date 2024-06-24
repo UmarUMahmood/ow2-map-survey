@@ -1,7 +1,5 @@
 import dotenv from "dotenv"
 import { MongoClient } from "mongodb"
-import fs from "fs"
-import path from "path"
 
 dotenv.config()
 
