@@ -1,6 +1,6 @@
 import express from "express"
 import cors from "cors"
-import { getVotes, getCount, addVote, initialiseDb, closeDb } from "./db.js"
+import { getVotes, getCount, addVote, initialiseDb, closeDb } from "./database.js"
 import rateLimit from "express-rate-limit"
 import helmet from "helmet"
 import dotenv from "dotenv"
@@ -8,7 +8,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 const app = express()
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 
 const corsOptions = {
   origin: process.env.ORIGIN_URL,
@@ -19,7 +19,7 @@ app.use(cors(corsOptions))
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200 // limit each IP to 100 requests per windowMs
+  max: 200 // limit each IP to 200 requests per windowMs
 })
 
 app.use(limiter)
@@ -65,31 +65,24 @@ const validateMaps = (req, res, next) => {
 }
 
 app.get("/votes", async (req, res) => {
-  try {
-    const votes = await getVotes()
-    res.status(200).json(votes)
-  } catch (err) {
-    res.status(500).send("Error retrieving votes")
-  }
+  const votes = await getVotes()
+  res.status(200).json(votes)
 })
 
 app.get("/count", async (req, res) => {
-  try {
-    const count = await getCount()
-    res.status(200).json(count)
-  } catch (err) {
-    res.status(500).send("Error retrieving count")
-  }
+  const count = await getCount()
+  res.status(200).json(count)
 })
 
 app.post("/vote", validateMaps, async (req, res) => {
   const { map1, map2, voted } = req.body
-  try {
-    await addVote(map1, map2, voted)
-    res.status(201).send("Vote added")
-  } catch (err) {
-    res.status(500).send("Error adding vote")
-  }
+  await addVote(map1, map2, voted)
+  res.status(201).send("Vote added")
+})
+
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send("Something broke!")
 })
 
 app.listen(port, async () => {
