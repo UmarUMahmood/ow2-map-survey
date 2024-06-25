@@ -1,4 +1,4 @@
-umarrii.com {
+ow2mapsurvey.umarrii.com {
 	# Use the staging environment during development to avoid rate limits just in case
 	# tls {
 	# 	ca https://acme-staging-v02.api.letsencrypt.org/directory
